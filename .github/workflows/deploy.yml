@@ -1,0 +1,41 @@
+name: Deploy to S3
+
+# Deploys the static site to the S3 website bucket on every push to main.
+# Auth is via GitHub OIDC — no AWS keys are stored in the repo.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # allows manual runs from the Actions tab
+
+permissions:
+  id-token: write   # required to request the OIDC token
+  contents: read
+
+concurrency:
+  group: deploy-s3
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Sync site to S3
+        run: |
+          aws s3 sync . "s3://${{ vars.S3_BUCKET }}" \
+            --delete \
+            --cache-control "no-cache" \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "README.md" \
+            --exclude "DEPLOY.md" \
+            --exclude ".gitignore"
