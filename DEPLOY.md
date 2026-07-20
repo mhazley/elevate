@@ -136,6 +136,43 @@ http://BUCKET.s3-website.REGION.amazonaws.com
 
 ---
 
+## Troubleshooting: `Not authorized to perform sts:AssumeRoleWithWebIdentity`
+
+The provider, role, and trust policy can all look perfect and still fail. The
+usual cause is that the token's **actual `sub` claim** isn't what you assume.
+This account has **OIDC subject-claim customization** enabled, so the subject is
+not the default `repo:OWNER/REPO:...` — it embeds immutable numeric IDs:
+
+```
+repo:mhazley@6282802/elevate@1306919298:ref:refs/heads/main
+```
+
+So the trust policy's `sub` condition must match **that**, not `repo:mhazley/elevate:*`:
+
+```json
+"StringLike": { "token.actions.githubusercontent.com:sub": "repo:mhazley@6282802/elevate@1306919298:*" }
+```
+
+To see the real claims your workflow is sending, temporarily add a step before
+the AWS-credentials step:
+
+```yaml
+      - name: Decode real OIDC claims
+        run: |
+          IDTOKEN=$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r '.value')
+          python3 - "$IDTOKEN" <<'PY'
+          import sys, base64, json
+          p = sys.argv[1].split('.')[1]; p += '=' * (-len(p) % 4)
+          c = json.loads(base64.urlsafe_b64decode(p))
+          for k in ("sub","aud","repository","job_workflow_ref"): print(f"{k} = {c.get(k)!r}")
+          PY
+```
+
+Match the trust policy's `sub` to whatever `sub` prints, then remove the step.
+
+---
+
 ### Later, before the real launch
 - Put CloudFront in front for HTTPS, a custom domain, and proper caching.
 - Swap the blanket `--cache-control "no-cache"` in the workflow for long-cache
