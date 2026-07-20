@@ -23,6 +23,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Debug OIDC
+        run: |
+          echo "sub  = repo:${{ github.repository }}:ref:${{ github.ref }}"
+          echo "role = ${{ vars.AWS_ROLE_ARN }}"
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
