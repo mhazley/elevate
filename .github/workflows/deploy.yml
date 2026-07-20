@@ -21,18 +21,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Debug OIDC
-        run: |
-          echo "sub  = repo:${{ github.repository }}:ref:${{ github.ref }}"
-          echo "role = ${{ vars.AWS_ROLE_ARN }}"
+        uses: actions/checkout@v6
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: arn:aws:iam::826902266210:role/elevate-deploy
+          aws-region: eu-west-1
 
       - name: Sync site to S3
         run: |
