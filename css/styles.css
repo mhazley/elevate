@@ -132,6 +132,17 @@ h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; font-weight: 700;
 .prose p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 22px; }
 .prose p strong { color: var(--text); }
 
+/* ---------- Coach photo ---------- */
+.coach-photo {
+  display: block;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  border: 3px solid var(--accent);
+  box-shadow: 0 22px 55px -22px var(--accent);
+}
+
 /* ---------- Pricing ---------- */
 .price-card { display: flex; flex-direction: column; }
 .price-card.is-featured { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 20px 50px -20px var(--accent-soft); }
