@@ -38,4 +38,13 @@ jobs:
             --exclude ".github/*" \
             --exclude "README.md" \
             --exclude "DEPLOY.md" \
+            --exclude "CLOUDFRONT.md" \
             --exclude ".gitignore"
+
+      # No-ops until CLOUDFRONT_DISTRIBUTION_ID is set (i.e. once CloudFront is live).
+      - name: Invalidate CloudFront cache
+        if: vars.CLOUDFRONT_DISTRIBUTION_ID != ''
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"

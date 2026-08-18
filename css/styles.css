@@ -131,6 +131,9 @@ h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; font-weight: 700;
 .prose { max-width: 720px; margin-inline: auto; }
 .prose p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 22px; }
 .prose p strong { color: var(--text); }
+.prose h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin: 46px 0 22px; }
+.prose h2 .accent { color: var(--accent); }
+.prose .lede { font-size: 1.25rem; color: var(--text); }
 
 /* ---------- Coach photo ---------- */
 .coach-photo {
