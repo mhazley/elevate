@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — Elevate Coaching</title>
+  <meta name="description" content="Book your place at Elevate Coaching's upcoming events and sessions in Portadown." />
+  <link rel="canonical" href="https://elevatecoach.ing/events.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elevate Coaching" />
+  <meta property="og:title" content="Events — Elevate Coaching" />
+  <meta property="og:description" content="Book your place at Elevate Coaching's upcoming events and sessions." />
+  <meta property="og:url" content="https://elevatecoach.ing/events.html" />
+  <meta property="og:image" content="https://elevatecoach.ing/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Events — Elevate Coaching" />
+  <meta name="twitter:description" content="Book your place at Elevate Coaching's upcoming events and sessions." />
+  <meta name="twitter:image" content="https://elevatecoach.ing/assets/og-image.png" />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== Nav ===== -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="nav__brand" href="index.html">
+        <img src="assets/logo.png" alt="Elevate Coaching logo" />
+        <span>Elevate<span class="accent">.</span></span>
+      </a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="events.html" class="is-active">Events</a>
+        <a href="services.html" class="btn btn--primary nav__cta">Start today</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" style="padding-bottom:24px">
+    <div class="wrap">
+      <p class="eyebrow">Events</p>
+      <h1>Upcoming events</h1>
+      <p class="lead">Book your place below — secure checkout handled by Eventbrite.</p>
+    </div>
+  </section>
+
+  <!-- ===== Eventbrite checkout ===== -->
+  <section class="section" style="padding-top:24px">
+    <div class="wrap">
+      <div id="eventbrite-widget-container-1998991222558" style="max-width:720px;margin:0 auto;"></div>
+      <p style="text-align:center;margin-top:18px;">
+        <a class="accent" href="https://www.eventbrite.co.uk/e/1998991222558" target="_blank" rel="noopener">Having trouble booking? Open on Eventbrite →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <a class="footer__brand" href="index.html">
+        <img src="assets/logo.png" alt="Elevate Coaching" />
+        Elevate Coaching
+      </a>
+      <nav class="footer__links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="events.html">Events</a>
+        <a href="https://instagram.com/coaching.elevate" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@elevatecoach.ing">Email</a>
+      </nav>
+      <p class="footer__meta">CrossFit Jona, 169–173 Obins St, Portadown BT62 1BS<br />© 2026 Elevate Coaching</p>
+    </div>
+  </footer>
+
+  <!-- Eventbrite embedded checkout -->
+  <script src="https://www.eventbrite.co.uk/static/widgets/eb_widgets.js"></script>
+  <script type="text/javascript">
+    var elevateOrderComplete = function () {
+      console.log('Order complete!');
+    };
+
+    window.EBWidgets.createWidget({
+      widgetType: 'checkout',
+      eventId: '1998991222558',
+      iframeContainerId: 'eventbrite-widget-container-1998991222558',
+      iframeContainerHeight: 425,
+      themeSettings: {
+        brandColor: '#fd93db',
+        fontColor: '#f4f4f4',
+        background: '#1a1a1a'
+      },
+      onOrderComplete: elevateOrderComplete
+    });
+  </script>
+
+</body>
+</html>
